@@ -1,0 +1,64 @@
+.message-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: calc(50vh - 100px); /* Adjust this value as needed */
+    overflow-y: auto;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 10px;
+    color: #2c2c2c;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.4;
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.message-red {
+    background-color: #feeeed;
+    color: #2c2c2c;
+}
+
+.message-orange {
+    background-color: #fbecdf;
+    color: #2c2c2c;
+}
+
+.message-green {
+    background-color: #f3ffe1;
+    color: #2c2c2c;
+}
+
+.message-0 {
+    font-size: 16px;
+    animation: slideIn 0.3s ease;
+}
+
+.message-1 {
+    opacity: 50%;
+}
+
+.message-2 {
+    opacity: 50%;
+    transform: translateY(20px);
+}
+
+.emoji {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
