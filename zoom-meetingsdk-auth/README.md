@@ -1,57 +1,57 @@
-# Zoom Meeting SDK Auth Endpoint sample
+# Zoom Meeting SDK 認証エンドポイントサンプル
 
-Use of this sample app is subject to our [Terms of Use](https://explore.zoom.us/en/legal/zoom-api-license-and-tou/).
+このサンプルアプリの使用は、[利用規約](https://explore.zoom.us/en/legal/zoom-api-license-and-tou/)に従います。
 
-This is a Node.js / Express server that generates a [Meeting SDK JWT](https://developers.zoom.us/docs/meeting-sdk/auth/#generate-a-meeting-sdk-jwt) via an HTTP request for authorized use of the [Zoom Meeting SDK](https://developers.zoom.us/docs/meeting-sdk/).
+これは、[Zoom Meeting SDK](https://developers.zoom.us/docs/meeting-sdk/)の認証に必要な[Meeting SDK JWT](https://developers.zoom.us/docs/meeting-sdk/auth/#generate-a-meeting-sdk-jwt)をHTTPリクエスト経由で生成するNode.js/Expressサーバーです。
 
-If you would like to skip these steps and just deploy the finished code to a managed service, click the Deploy to Railway/Render/Heroku button. (You will still need to configure a few simple things, so skip to [Deployment](#deployment).)
+これらの手順をスキップして、完成したコードを管理サービスにデプロイしたい場合は、Railway、Render、Herokuの「Deploy」ボタンをクリックしてください。（いくつかの設定が必要なので、[デプロイメント](#deployment)を参照してください。）
 
 | Railway | Render | Heroku |
 |:-:|:-:|:-:|
-| [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/JsX6Pk?referralCode=HTPdHX) | [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/zoom/meetingsdk-auth-endpoint-sample) | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/zoom/meetingsdk-auth-endpoint-sample) | 
+| [![Railwayでデプロイ](https://railway.app/button.svg)](https://railway.app/template/JsX6Pk?referralCode=HTPdHX) | [![Renderでデプロイ](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/zoom/meetingsdk-auth-endpoint-sample) | [![デプロイ](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/zoom/meetingsdk-auth-endpoint-sample) |
 
-> Note: Both Railway and Render have free tiers, but Heroku requires a credit card to deploy.
+> 注意: Railway と Render には無料プランがありますが、Heroku ではデプロイにクレジットカードが必要です。
 
-## Installation
+## インストール
 
-In terminal, run the following command to clone the repo:
+ターミナルで、以下のコマンドを実行してリポジトリをクローンします：
 
 `$ git clone https://github.com/zoom/meetingsdk-auth-endpoint-sample.git`
 
-## Setup
+## セットアップ
 
-1. In terminal, `cd` into the cloned repository:
+1. ターミナルで、クローンしたリポジトリに移動します：
 
-   `$ cd meetingsdk-auth-endpoint-sample`
+   `$ cd zoom-meetingsdk-auth`
 
-1. Then install the dependencies:
+1. 依存関係をインストールします：
 
    `$ npm install`
 
-2. Rename `.env.example` to `.env`, edit the file contents to include your [Zoom Meeting SDK key and secret](https://developers.zoom.us/docs/meeting-sdk/developer-accounts/), save the file contents, and close the file.
+2. `.env.example` を `.env` にリネームし、ファイルの内容を編集して[Zoom Meeting SDKのキーとシークレット](https://developers.zoom.us/docs/meeting-sdk/developer-accounts/)を含め、ファイルを保存して閉じます。
 
-3. Start the server:
+3. サーバーを起動します：
 
    `$ npm run start`
 
-## Usage
+## 使用方法
 
-Make a POST request to `http://localhost:4000` (or your deployed url) with the following request body:
+以下のリクエストボディを使って、`http://localhost:4000`（またはデプロイ済みのURL）にPOSTリクエストを送信します：
 
-| Property            | Type     | Required?  | Validation Rule(s)                                                                          |
-| ------------------- | -------- | ---------- | ------------------------------------------------------------------------------------------- |
-| `meetingNumber`     | `string` | Yes (web)* | - Required if generating a web JWT, optional for native.                                    |
-| `role`              | `number` | Yes (web)* | - Required if generating a web JWT, optional for native. <br> - Must be equal to `0` or `1` |
-| `expirationSeconds` | `number` | No         | - Must be between `1800` (30 minutes) and `172800` (48 hours) seconds                       |
+| プロパティ         | 型       | 必須か?      | 検証ルール                                                                           |
+| ------------------ | -------- | ------------ | ------------------------------------------------------------------------------------ |
+| `meetingNumber`     | `string` | 必須（Web）  | - Web JWTを生成する場合に必須、ネイティブの場合は任意                                 |
+| `role`              | `number` | 必須（Web）  | - Web JWTを生成する場合に必須、ネイティブの場合は任意。<br> - `0` または `1` のみ有効 |
+| `expirationSeconds` | `number` | いいえ       | - `1800`（30分）から `172800`（48時間）の間で指定                                     |
 
-> [!IMPORTANT]
-> If `meetingNumber` or `role` are supplied in the request body, the other must be present as well. If both are supplied, the JWT will be valid for web, otherwise it will be valid for native.
+> [!重要]
+> `meetingNumber`または`role`がリクエストボディに含まれる場合、もう一方も必須です。両方が提供されている場合、JWTはWeb用として有効になります。そうでない場合はネイティブ用として有効です。
 
-### Example Request
+### リクエスト例
 
 POST `http://localhost:4000`
 
-Request Body:
+リクエストボディ：
 
 ```json
 {
@@ -60,7 +60,7 @@ Request Body:
 }
 ```
 
-If successful, the response body will be a JSON representation of your Meeting SDK JWT:
+成功すると、レスポンスボディは以下のようにMeeting SDK JWTのJSON表現となります：
 
 ```json
 {
@@ -68,12 +68,12 @@ If successful, the response body will be a JSON representation of your Meeting S
 }
 ```
 
-In the [Meeting SDK](https://developers.zoom.us/docs/meeting-sdk/auth/#join-meetings-and-webinars-with-the-meeting-sdk-jwt), pass in the `signature` to the `join()` function:
+[Meeting SDK](https://developers.zoom.us/docs/meeting-sdk/auth/#join-meetings-and-webinars-with-the-meeting-sdk-jwt) では、`signature` を `join()` 関数に渡します：
 
 ```js
-// Make http request to your auth endpoint to get the Meeting SDK JWT
+// Meeting SDK JWT を取得するために、認証エンドポイントに HTTP リクエストを送信
 
-// Meeting SDK - web - Client View - example:
+// Meeting SDK - Web - クライアントビュー - 例：
 ZoomMtg.join({
   signature: signature,
   sdkKey: sdkKey,
@@ -82,7 +82,7 @@ ZoomMtg.join({
   passWord: password
 })
 
-// Meeting SDK - web - Component View - example:
+// Meeting SDK - Web - コンポーネントビュー - 例：
 client.join({
   signature: signature,
   sdkKey: sdkKey,
@@ -92,42 +92,31 @@ client.join({
 })
 ```
 
-## Deployment
+## デプロイメント
 
-### Deploy to a Managed Service
+### 管理サービスにデプロイ
 
-1. After clicking the "Deploy to <Provider\>" button, enter a name for your app (or leave it blank to have a name generated for you), and insert your [Zoom Meeting SDK credentials](https://developers.zoom.us/docs/meeting-sdk/developer-accounts/#get-meeting-sdk-credentials):
+1. 「Deploy to <プロバイダ>」ボタンをクリックした後、アプリ名を入力するか（または空欄のままにして自動生成される名前を使用する）、[Zoom Meeting SDKの資格情報](https://developers.zoom.us/docs/meeting-sdk/developer-accounts/#get-meeting-sdk-credentials)を挿入します：
 
-   - `ZOOM_MEETING_SDK_KEY` (Your Zoom Meeting SDK Key or Client ID for Meeting SDK app type's created after February 11, 2023, found on your Zoom Meeting SDK App Credentials page)
-   - `ZOOM_MEETING_SDK_SECRET` (Your Zoom Meeting SDK Secret or Client Secret for Meeting SDK app type's created after February 11, 2023, found on your Zoom Meeting SDK App Credentials page)
+   - `ZOOM_MEETING_SDK_KEY`（Zoom Meeting SDKキーまたは2023年2月11日以降に作成されたMeeting SDKアプリタイプ用のクライアントID）
+   - `ZOOM_MEETING_SDK_SECRET`（Zoom Meeting SDKシークレットまたは2023年2月11日以降に作成されたMeeting SDKアプリタイプ用のクライアントシークレット）
 
-1. Then click "Deploy App".
+1. その後「Deploy App」をクリックします。
 
-1. Use your URL as your Meeting SDK Auth Endpoint.
+1. URLをMeeting SDK認証エンドポイントとして使用します。
 
-   Example: `https://abc123.provider.com/`
+   例: `https://abc123.provider.com/`
 
 ```bash
 $ curl <YOU_URL> -X POST -d '{  "role": "1", "meetingNumber": "123123123"}' -H "Content-Type: application/json"
 ```
-<!-- ### Heroku (CLI)
 
-1. If you cloned this repo, you may use the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) to deploy your server. Remember to [set your config vars (envoirnment variables)](https://devcenter.heroku.com/articles/config-vars).
+### 他のサーバーホスティング
 
-1. Use your Heroku URL as your Meeting SDK Auth Endpoint.
+1. 他のサーバーホスティングについては、[こちらのチュートリアル](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment#choosing_a_hosting_provider)を参照してください。
 
-   Example: `https://abc123.herokuapp.com/` -->
+1. デプロイされたURLをMeeting SDK認証エンドポイントとして使用します。
 
-### Other Server Hosting
+   例: `https://abc123.compute-1.amazonaws.com/`
 
-1. For Other Server Hosting information, see [this tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment#choosing_a_hosting_provider).
-
-1. Use your deployed URL as your Meeting SDK Auth Endpoint.
-
-   Example: `https://abc123.compute-1.amazonaws.com/`
-
-Now you can [generate your Meeting SDK JWT](#usage).
-
-## Need help?
-
-If you're looking for help, try [Developer Support](https://devsupport.zoom.us) or our [Developer Forum](https://devforum.zoom.us). Priority support is also available with [Premier Developer Support](https://explore.zoom.us/docs/en-us/developer-support-plans.html) plans.
+これで、[Meeting SDK JWTを生成](#usage)する準備が整いました。
