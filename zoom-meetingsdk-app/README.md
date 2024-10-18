@@ -1,48 +1,47 @@
-# Zoom Meeting SDK React sample
+# Zoom Meeting SDK App サンプル
 
-Use of this sample app is subject to our [Terms of Use](https://explore.zoom.us/en/legal/zoom-api-license-and-tou/).
+このサンプルアプリの使用は、[利用規約](https://explore.zoom.us/en/legal/zoom-api-license-and-tou/)に従います。
 
+このリポジトリは、[Vite](https://vitejs.dev/)によって生成された[React](https://reactjs.org/)アプリで、[Zoom Meeting SDK](https://developers.zoom.us/docs/meeting-sdk/web/)を使用してZoom会議やウェビナーを開始および参加します。
 
-This repo is a [React](https://reactjs.org/) app generated via [Vite](https://vitejs.dev/) that uses the [Zoom Meeting SDK](https://developers.zoom.us/docs/meeting-sdk/web/) to start and join Zoom meetings and webinars.
+![Zoom Meeting SDK クライアントビュー](/public/images/meetingsdk-web-client-view.gif)
 
-![Zoom Meeting SDK Client View](/public/images/meetingsdk-web-client-view.gif)
+## インストール
 
-## Installation
-
-To get started, clone the repo:
+まず、リポジトリをクローンします：
 
 `$ git clone https://github.com/zoom/meetingsdk-react-sample.git`
 
-## Setup
+## セットアップ
 
-1. Once cloned, navigate to the `meetingsdk-react-sample` directory:
+1. クローンしたら、`zoom-meetingsdk-app`ディレクトリに移動します：
 
-   `$ cd meetingsdk-react-sample`
+   `$ cd zoom-meetingsdk-app`
 
-1. Then install the dependencies:
+1. 依存関係をインストールします：
 
    `$ npm install`
 
-1. Open the `meetingsdk-react-sample` directory in your code editor.
+1. `zoom-meetingsdk-app`ディレクトリをコードエディタで開きます。
 
-1. Open the `src/App.tsx` file, and enter values for the variables:
+1. `src/App.tsx`ファイルを開き、次の変数に値を入力します：
 
-   **NEW:** To use the [Component View](https://developers.zoom.us/docs/meeting-sdk/web/component-view/), replace `App.tsx` with `App-New.tsx`. (The `leaveUrl` is not needed).
+   **NEW:** [Component View](https://developers.zoom.us/docs/meeting-sdk/web/component-view/)を使用するには、`App.tsx`を`App-New.tsx`に置き換えます。（`leaveUrl`は不要です）
 
-   | Variable                   | Description |
+   | 変数名                     | 説明 |
    | -----------------------|-------------|
-   | authEndpoint          | Required, your Meeting SDK auth endpoint that securely generates a Meeting SDK JWT. [Get a Meeting SDK auth endpoint here.](https://github.com/zoom/meetingsdk-sample-signature-node.js) |
-   | sdkKey                   | Required, your Zoom Meeting SDK Key or Client ID for Meeting SDK app type's created after February 11, 2023. [You can get yours here](https://developers.zoom.us/docs/meeting-sdk/developer-accounts/#get-meeting-sdk-credentials). |
-   | meetingNumber                   | Required, the Zoom Meeting or webinar number. |
-   | passWord                   | Optional, meeting password. Leave as empty string if the meeting does not require a password. |
-   | role                   | Required, `0` to specify participant, `1` to specify host. |
-   | userName                   | Required, a name for the user joining / starting the meeting / webinar. |
-   | userEmail                   | Required for Webinar, optional for Meeting, required for meeting and webinar if [registration is required](https://support.zoom.us/hc/en-us/articles/360054446052-Managing-meeting-and-webinar-registration). The email of the user starting or joining the meeting / webinar. |
-   | registrantToken            | Required if your [meeting](https://developers.zoom.us/docs/meeting-sdk/web/client-view/meetings/#join-meeting-with-registration-required) or [webinar](https://developers.zoom.us/docs/meeting-sdk/web/client-view/webinars/#join-webinar-with-registration-required) requires [registration](https://support.zoom.us/hc/en-us/articles/360054446052-Managing-meeting-and-webinar-registration). |
-   | zakToken            | Required to start meetings or webinars on external Zoom user's behalf, the [authorized Zoom user's ZAK token](https://developers.zoom.us/docs/meeting-sdk/auth/#start-meetings-and-webinars-with-a-zoom-users-zak-token). The ZAK can also be used to join as an [authenticated participant](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063837). |
-   | leaveUrl                   | Required for Client View, the url the user is taken to once the meeting is over. |
+   | authEndpoint          | 必須、Meeting SDK JWTを安全に生成するあなたのMeeting SDK認証エンドポイント。 [ここで認証エンドポイントを取得できます](https://github.com/zoom/meetingsdk-sample-signature-node.js)。 |
+   | sdkKey                   | 必須、Zoom Meeting SDKキーまたは2023年2月11日以降に作成されたMeeting SDKアプリタイプ用のクライアントID。[こちらで取得できます](https://developers.zoom.us/docs/meeting-sdk/developer-accounts/#get-meeting-sdk-credentials)。 |
+   | meetingNumber                   | 必須、Zoom会議またはウェビナー番号。 |
+   | passWord                   | 任意、会議のパスワード。パスワードが不要な場合は空文字列を指定。 |
+   | role                   | 必須、`0`は参加者、`1`はホストを指定。 |
+   | userName                   | 必須、会議/ウェビナーに参加/開始するユーザーの名前。 |
+   | userEmail                   | ウェビナーには必須、会議には任意、[登録が必要な場合](https://support.zoom.us/hc/en-us/articles/360054446052-Managing-meeting-and-webinar-registration)は会議/ウェビナーにも必須。会議/ウェビナーに参加または開始するユーザーのメールアドレス。 |
+   | registrantToken            | [登録が必要な](https://developers.zoom.us/docs/meeting-sdk/web/client-view/meetings/#join-meeting-with-registration-required)会議または[ウェビナー](https://developers.zoom.us/docs/meeting-sdk/web/client-view/webinars/#join-webinar-with-registration-required)の場合に必要。 |
+   | zakToken            | 他のZoomユーザーの代理で会議やウェビナーを開始するために必要。 [認証されたZoomユーザーのZAKトークン](https://developers.zoom.us/docs/meeting-sdk/auth/#start-meetings-and-webinars-with-a-zoom-users-zak-token)。 ZAKは[認証済み参加者](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063837)として参加するためにも使用可能。 |
+   | leaveUrl                   | クライアントビューに必要、会議が終了した後にユーザーが遷移するURL。 |
 
-   Example:
+   例:
 
    ```js
    var authEndpoint = 'http://localhost:4000'
@@ -57,47 +56,47 @@ To get started, clone the repo:
    var leaveUrl = 'http://localhost:5173'
    ```
 
-1. Save `App.tsx`.
+1. `App.tsx`を保存します。
 
-1. Run the app:
+1. アプリを起動します：
 
    `$ npm run dev`
 
-## Usage
+## 使用方法
 
-1. Navigate to http://localhost:5173 and click "Join Meeting".
+1. http://localhost:5173 にアクセスし、「Join Meeting」をクリックします。
 
-   ### Client View
+   ### クライアントビュー
 
-   ![Zoom Meeting SDK Client View](/public/images/meetingsdk-web-client-view.gif)
+   ![Zoom Meeting SDK クライアントビュー](/public/images/meetingsdk-web-client-view.gif)
 
-   ### Component View
+   ### コンポーネントビュー
 
-   ![Zoom Meeting SDK Component View](/public/images/meetingsdk-web-component-view.gif)
+   ![Zoom Meeting SDK コンポーネントビュー](/public/images/meetingsdk-web-component-view.gif)
 
-   Learn more about [Gallery View requirements](https://developers.zoom.us/docs/meeting-sdk/web/gallery-view/) and [see more product screenshots](https://developers.zoom.us/docs/meeting-sdk/web/gallery-view/#how-views-look-with-and-without-sharedarraybuffer).
+   [ギャラリービューの要件](https://developers.zoom.us/docs/meeting-sdk/web/gallery-view/)について詳しく学び、[製品のスクリーンショット](https://developers.zoom.us/docs/meeting-sdk/web/gallery-view/#how-views-look-with-and-without-sharedarraybuffer)を参照してください。
 
-## Deployment
+## デプロイメント
 
-The React Sample App can be easily deployed to [GitHub Pages](#github-pages), or [another static web hosting service](#other-static-web-hosting), like an AWS S3 bucket.
+Reactサンプルアプリは、[GitHub Pages](#github-pages)や[AWS S3バケット](#other-static-web-hosting)のような静的Webホスティングサービスに簡単にデプロイできます。
 
 ### GitHub Pages
 
-1. Create a repo on [GitHub](https://github.com).
+1. [GitHub](https://github.com)でリポジトリを作成します。
 
-1. Add the remote to your project:
+1. プロジェクトにリモートを追加します：
 
    `$ git remote add origin GITHUB_URL/GITHUB_USERNAME/GITHUB_REPO_NAME.git`
 
-1. Open the `package.json` file and on line 5 replace the homepage value `""` with your GitHub repo name with a slash in front like this: `"/GITHUB_REPO_NAME"`.
+1. `package.json`ファイルを開き、5行目の`homepage`の値`""`を、リポジトリ名にスラッシュをつけた形に変更します：`"/GITHUB_REPO_NAME"`。
 
-1. Build your project:
+1. プロジェクトをビルドします：
 
    `$ npm run build`
 
-1. Rename the `build` folder to `docs`
+1. `build`フォルダの名前を`docs`に変更します。
 
-1. Git add, commit, and push your project:
+1. プロジェクトをGitに追加、コミット、プッシュします：
 
    `$ git add -A`
 
@@ -105,22 +104,18 @@ The React Sample App can be easily deployed to [GitHub Pages](#github-pages), or
 
    `$ git push origin master`
 
-1. On GitHub, in your repo, navigate to the "settings" page, scroll down to the "GitHub Pages" section, and choose the "master branch/docs folder" for the source.
+1. GitHubのリポジトリで「設定」ページに移動し、「GitHub Pages」セクションまでスクロールして、「master branch/docsフォルダ」をソースとして選択します。
 
-1. Now your project will be deployed to https://GITHUB_USERNAME.github.io/GITHUB_REPO_NAME.
+1. あなたのプロジェクトは、https://GITHUB_USERNAME.github.io/GITHUB_REPO_NAME にデプロイされます。
 
-### Other Static Web Hosting
+### その他の静的Webホスティング
 
-1. Build your project:
+1. プロジェクトをビルドします：
 
    `$ npm run build`
 
-1. Deploy the complied `/build` directory to a static web hosting service, like an AWS S3 bucket.
+1. コンパイルされた`/build`ディレクトリをAWS S3バケットのような静的Webホスティングサービスにデプロイします。
 
-### Advanced Deployment
+### 高度なデプロイ
 
-For more advanced instructions on deployment, [see the Vite Deployment docs](https://vitejs.dev/guide/build.html#deployment).
-
-## Need help?
-
-If you're looking for help, try [Developer Support](https://devsupport.zoom.us) or our [Developer Forum](https://devforum.zoom.us). Priority support is also available with [Premier Developer Support](https://explore.zoom.us/docs/en-us/developer-support-plans.html) plans.
+より高度なデプロイ手順については、[Viteのデプロイドキュメント](https://vitejs.dev/guide/build.html#deployment)を参照してください。
